@@ -36,7 +36,7 @@ fun WeatherScreen(
 
 
 
-    val apiKey = "a9d7877ecf28b142eab78b39d9e14c03"
+    val apiKey = "update API key"
     val latitude = 12.954037
     val longitude = 77.680389
 
