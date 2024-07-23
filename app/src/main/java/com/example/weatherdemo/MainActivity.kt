@@ -5,35 +5,35 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.coroutineScope
 import com.example.weatherdemo.ui.theme.WeatherDemoTheme
-import com.example.weatherdemo.ui.weather.WeatherUiState
-import com.example.weatherdemo.ui.weather.WeatherUiStates
-import com.example.weatherdemo.ui.weather.WeatherViewModel
 import com.example.weatherdemo.utils.constants.AppConstants.REQUEST_LOCATION_PERMISSION
 import com.example.weatherdemo.utils.extention.getLastLocation
 import com.example.weatherdemo.utils.extention.requestLocationPermissions
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     lateinit var fusedLocationClient: FusedLocationProviderClient
    // private val viewModel: WeatherViewModel by viewModels()
+     var firstTime = true
 
-
-    private val viewModel: WeatherViewModel by viewModels()
+    //private val viewModel: WeatherViewModel by viewModels()
 
 
 
@@ -43,36 +43,32 @@ class MainActivity : ComponentActivity() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         setContent {
-            WeatherDemoTheme {
+            var isDarkTheme = remember { mutableStateOf(false) }
+            var isDark = isSystemInDarkTheme()
+            SideEffect {
+                Log.d("NaveenTest","Restart")
+                // Example of some side effect
+                if(firstTime) {
+                    isDarkTheme.value = isDark
+                    firstTime = false
+                }
+            }
+
+            WeatherDemoTheme(isDarkTheme.value) {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    //Greeting("Android")
-                    WeatherScreen()
+
+//                    TopBarApp("Title")
+                   // Greeting("Android")
+
+                    WeatherScreen(context = this,scope = lifecycle.coroutineScope, isDarkTheme =  isDarkTheme)
                 }
             }
         }
-
-        val apiKey = "a9d7877ecf28b142eab78b39d9e14c03"
-        val latitude = 12.954037
-        val longitude = 77.680389
-
-
-        viewModel.fetchWeather(latitude, longitude, apiKey)
-
-         lifecycle.coroutineScope.launchWhenCreated {
-             viewModel.uiState.collect {uiState ->
-                 Log.d("NaveenTest",":Response ;>:"+uiState.response)
-
-             }
-         }
-
-
         this.requestLocationPermissions()
-
-
     }
 
 
@@ -107,8 +103,48 @@ fun Greeting(name: String) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    WeatherDemoTheme {
+    WeatherDemoTheme(false) {
         Greeting("Android")
     }
+}
+
+
+
+@Composable
+fun TopBarApp(title: String, isDarkTheme: MutableState<Boolean>) {
+
+    TopAppBar(
+        title = {
+            Text(text = title)
+        },
+        actions = {
+
+
+            var buttonTheme by remember {
+                mutableStateOf(isDarkTheme.value)
+            }
+
+// RowScope here, so these icons will be placed horizontally
+            IconButton(onClick = {
+                isDarkTheme.value = !isDarkTheme.value
+                buttonTheme = ! buttonTheme
+            }) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxHeight()
+                ) {
+                    if(buttonTheme){
+                        Icon(Icons.Filled.Search, contentDescription = null)
+                        Text(text = "Dark")
+                    }else{
+                        Icon(Icons.Default.Search, contentDescription = null)
+                        Text(text = "Light")
+                    }
+
+                }
+
+            }
+        },
+    )
 }
 

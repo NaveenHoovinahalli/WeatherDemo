@@ -1,17 +1,15 @@
 package com.example.weatherdemo.ui.weather
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherdemo.data.repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.example.weatherdemo.utils.Result
+import kotlinx.coroutines.flow.*
 
 
 @HiltViewModel
@@ -19,31 +17,32 @@ class WeatherViewModel @Inject constructor(private val repository: WeatherReposi
 
 
 
-    private val _uiState: MutableStateFlow<WeatherUiState> =
-        MutableStateFlow(WeatherUiState())
-    val uiState: StateFlow<WeatherUiState> = _uiState.asStateFlow()
+    private val _uiState: MutableStateFlow<WeatherUiStates> =
+        MutableStateFlow(WeatherUiStates.Default)
+    val uiState: StateFlow<WeatherUiStates> = _uiState.asStateFlow()
 
 
     fun fetchWeather(latitude: Double, longitude: Double, apiKey: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val result = repository.getWeather(latitude, longitude, apiKey).map { result ->
-                    when (result) {
+
+                val result1 = repository.getWeather(latitude, longitude, apiKey)
+                result1.collect { it ->
+                    when (it) {
                         is Result.Success -> {
-                            _uiState.value = WeatherUiState(response = result.data)
+                            Log.d("NaveenTest" , "ViewModel ::" +it.data)
+                            _uiState.value = WeatherUiStates.Success(response = it.data)
                         }
                         is Result.Loading -> {
-
+                            Log.d("NaveenTest" , "ViewModel ::Loading" )
+                            _uiState.value = WeatherUiStates.Loading()
                         }
                         is Result.Error -> {
-
+                            Log.d("NaveenTest" , "ViewModel ::Error " )
+                            _uiState.value = WeatherUiStates.Error(it.errorMessage)
                         }
                     }
                 }
-
-                result.collect {
-                }
-
             } catch (e: Exception) {
                 // Handle error
             }

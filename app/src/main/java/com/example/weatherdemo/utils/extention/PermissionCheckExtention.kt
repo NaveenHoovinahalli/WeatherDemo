@@ -45,7 +45,6 @@ fun Context.getLastLocation(fusedLocationClient : FusedLocationProviderClient, c
                     Log.d("NaveenTest", " Location::" + location.latitude)
                     Log.d("NaveenTest", " Location::" + location.longitude)
 
-
                     // Handle location found
                     // Here you can update UI or save location details
                     // For example, update a text or trigger another action
