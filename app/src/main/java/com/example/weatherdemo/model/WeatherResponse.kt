@@ -1,5 +1,6 @@
 package com.example.weatherdemo.model
 
+
 data class WeatherResponse(
     val base: String,
     val clouds: Clouds,

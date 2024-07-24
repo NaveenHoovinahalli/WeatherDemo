@@ -15,17 +15,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-  //  https://api.openweathermap.org/data/2.5/weather?lat=12.954037&lon=77.680389&appid=a9d7877ecf28b142eab78b39d9e14c03
-
-
     @Singleton
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
         val okHttpClient = OkHttpClient.Builder()
         return okHttpClient.build()
-
     }
-
 
     @Singleton
     @Provides

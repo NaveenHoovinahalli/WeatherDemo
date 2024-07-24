@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.weatherdemo.model.CurrentLocation
@@ -14,13 +15,16 @@ import com.example.weatherdemo.utils.constants.AppConstants.REQUEST_LOCATION_PER
 import com.google.android.gms.location.FusedLocationProviderClient
 
 
-fun Activity.requestLocationPermissions() {
+fun Activity.requestLocationPermissions(fusedLocationClient :FusedLocationProviderClient, callBack: (CurrentLocation) -> Unit) {
     when {
         ContextCompat.checkSelfPermission(
             this,
             Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED -> {
             // You can proceed with location operations
+            Log.d("NaveenTest", " Availabe")
+            this.getLastLocation(fusedLocationClient, callBack)
+
         }
         else -> {
             // You need to request permissions
@@ -44,7 +48,7 @@ fun Context.getLastLocation(fusedLocationClient : FusedLocationProviderClient, c
                 if (location != null) {
                     Log.d("NaveenTest", " Location::" + location.latitude)
                     Log.d("NaveenTest", " Location::" + location.longitude)
-
+                    callBack (CurrentLocation(true,location.latitude, location.longitude ))
                     // Handle location found
                     // Here you can update UI or save location details
                     // For example, update a text or trigger another action

@@ -1,6 +1,5 @@
 package com.example.weatherdemo.ui.weather
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherdemo.data.repository.WeatherRepository
@@ -13,12 +12,11 @@ import kotlinx.coroutines.flow.*
 
 
 @HiltViewModel
-class WeatherViewModel @Inject constructor(private val repository: WeatherRepository) : ViewModel() {
-
-
+class WeatherViewModel @Inject constructor(private val repository: WeatherRepository) :
+    ViewModel() {
 
     private val _uiState: MutableStateFlow<WeatherUiStates> =
-        MutableStateFlow(WeatherUiStates.Default)
+        MutableStateFlow(WeatherUiStates.Launch)
     val uiState: StateFlow<WeatherUiStates> = _uiState.asStateFlow()
 
 
@@ -30,15 +28,12 @@ class WeatherViewModel @Inject constructor(private val repository: WeatherReposi
                 result1.collect { it ->
                     when (it) {
                         is Result.Success -> {
-                            Log.d("NaveenTest" , "ViewModel ::" +it.data)
                             _uiState.value = WeatherUiStates.Success(response = it.data)
                         }
                         is Result.Loading -> {
-                            Log.d("NaveenTest" , "ViewModel ::Loading" )
                             _uiState.value = WeatherUiStates.Loading()
                         }
                         is Result.Error -> {
-                            Log.d("NaveenTest" , "ViewModel ::Error " )
                             _uiState.value = WeatherUiStates.Error(it.errorMessage)
                         }
                     }

@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 sealed class WeatherUiStates {
     object Default : WeatherUiStates()
+    object Launch : WeatherUiStates()
+
     class Loading : WeatherUiStates()
     class Success(val response : WeatherResponse) : WeatherUiStates()
     class Error(val error : String) : WeatherUiStates()

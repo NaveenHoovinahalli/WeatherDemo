@@ -7,8 +7,8 @@
     <string name="humidity_unit">percentage %</string>
     <string name="feels_like_temperature_in_celsius">Feels like %1$s°C</string>
     <string name="temperature_value_in_celsius">%1$s°</string>
-    <string name="humidity_label">humidity</string>
-    <string name="wind_speed_label">wind speed</string>
+    <string name="humidity_label">Humidity</string>
+    <string name="wind_speed_label">Wind speed</string>
     <string name="uv_index_label">uv</string>
     <string name="icon_image_url">https:%1$s</string>
     <string name="today">Today</string>
@@ -17,5 +17,8 @@
     <string name="search_hint">Search for a city</string>
     <string name="close_icon">Close Icon</string>
     <string name="retry">Retry</string>
+    <string name="sun_rise">Sun rise</string>
+    <string name="sun_set">Sun set</string>
+
 
 </resources>

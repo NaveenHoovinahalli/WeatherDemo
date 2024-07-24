@@ -1,6 +1,8 @@
 package com.example.weatherdemo.utils.extention
 
 
+import androidx.activity.ComponentActivity
+import java.util.*
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -33,4 +35,9 @@ fun Double.toCelsius(): Int {
 
 fun meterPerSecondToKilometerPerHour(meterPerSecond: Double): Int {
     return (meterPerSecond * 3.6).toInt()
+}
+
+fun isDayTime() : Boolean {
+    val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+    return !(currentHour >= 20 || currentHour < 6)
 }
