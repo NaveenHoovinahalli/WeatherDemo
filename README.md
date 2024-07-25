@@ -11,11 +11,17 @@ The application is built using Kotlin and follows the MVVM architecture pattern.
 - **Night Theme**: Automatically switches between day and night themes based on local time, with an option for manual toggling.
 - **Modern UI**: A clean and intuitive user interface designed with Jetpack Compose, including relevant images and icons for different weather conditions.
 
-<img src = "images/main_light.png" alt = "Day Theme Screenshot" width = "300" height = "500"/>
-*Day Weather Screenshot*
 
-<img src = "images/main_dark.png" alt = "Night Theme Screenshot" width = "300" height = "500"/>
-*Night Weather Screenshot*
+<div style="display: flex; justify-content: space-around; align-items: center;">
+<div style="text-align: center;">
+<img src="images/main_light.png" alt="Day Theme Screenshot" width="300" height="550"/>
+<p>Day Theme Screenshot</p>
+</div>
+<div style="text-align: center;">
+<img src="images/main_dark.png" alt="Night Theme Screenshot" width="300" height="550"/>
+<p>Night Theme Screenshot</p>
+</div>
+</div>
 
 ### API Usage
 
