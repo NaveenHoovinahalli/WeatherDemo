@@ -4,7 +4,6 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.example.weatherdemo.data.db.Converters
 import com.example.weatherdemo.data.db.ConvertersResponse
 
 @Entity(tableName = "weather_table")

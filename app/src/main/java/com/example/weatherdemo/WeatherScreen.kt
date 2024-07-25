@@ -1,7 +1,6 @@
 package com.example.weatherdemo
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,74 +20,61 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.weatherdemo.model.CurrentLocation
 import com.example.weatherdemo.ui.component.*
 import com.example.weatherdemo.ui.weather.WeatherUiStates
-import com.example.weatherdemo.ui.weather.WeatherViewModel
+import com.example.weatherdemo.viewmodel.WeatherViewModel
 import com.example.weatherdemo.utils.constants.AppConstants.API_KEY
 import com.example.weatherdemo.utils.constants.AppConstants.APP_TOP_BAR_TITLE
 import com.example.weatherdemo.utils.extention.isInternetAvailable
-import kotlinx.coroutines.CoroutineScope
 
 
 @Composable
 fun WeatherScreen(
     context: Context,
     modifier: Modifier = Modifier,
-    scope: CoroutineScope,
     viewModel: WeatherViewModel = hiltViewModel(),
     isDarkTheme: MutableState<Boolean>,
     location: CurrentLocation
 ) {
 
     var state: WeatherUiStates by remember { mutableStateOf(WeatherUiStates.Launch) }
-
-//    LaunchedEffect(key1 = location.value.isValueAvailable) {
-
-    if (isInternetAvailable(context) && location.isValueAvailable) {
-        Log.d("NaveenTest", " Calling API::" + location.lat)
-        viewModel.fetchWeather(location.lat, location.lon, API_KEY)
-    } else {
-        Log.d("NaveenTest", " Calling DB")
-        viewModel.fetchWeatherFromDb()
+    var isLocationUpdated by remember {
+        mutableStateOf(false)
     }
 
-//    } else {
-//        //Fetch from the DB
-//        Log.d("NaveenTest", " Calling DB::")
-//
-//        viewModel.fetchWeatherFromDb()
-//
-//    }
-//}
+    isLocationUpdated = location.isValueAvailable
+
+    if (isLocationUpdated) {
+        if (isInternetAvailable(context) && location.isValueAvailable) {
+            viewModel.fetchWeather(location.lat, location.lon, API_KEY)
+        } else {
+            viewModel.fetchWeatherFromDb()
+        }
+    }
 
     LaunchedEffect(key1 = true) {
         viewModel.uiState.collect {
             when (it) {
                 is WeatherUiStates.Success -> {
-                    Log.d("NaveenTest", " Success::")
                     state = WeatherUiStates.Success(it.response)
                     viewModel.insertWeatherToDb(it.response)
                 }
                 is WeatherUiStates.SuccessFromDB -> {
-                    Log.d("NaveenTest", " Success::")
                     state = WeatherUiStates.SuccessFromDB(it.response)
                 }
                 is WeatherUiStates.Error -> {
-                    Log.d("NaveenTest", " Error::")
-
                     state = WeatherUiStates.Error(it.error)
                 }
                 is WeatherUiStates.Loading -> {
-                    Log.d("NaveenTest", " Loading::")
-
                     state = WeatherUiStates.Loading()
                 }
                 is WeatherUiStates.Default -> {
-                    Log.d("NaveenTest", " Default::")
-
                     state = WeatherUiStates.Default
-                } is WeatherUiStates.Launch -> {
-                Log.d("NaveenTest", " Launch::")
-                state = WeatherUiStates.Launch
                 }
+                is WeatherUiStates.Launch -> {
+                    state = WeatherUiStates.Launch
+                } else ->{
+                  state = WeatherUiStates.Launch
+
+            }
             }
         }
     }
@@ -103,7 +89,7 @@ fun WeatherScreen(
                 color = MaterialTheme.colors.background
             ) {
                 SkyBackground(isDarkTheme)
-                WeatherScreenContent(uiState = state, isDarkTheme =  isDarkTheme)
+                WeatherScreenContent(uiState = state, isDarkTheme = isDarkTheme)
 
             }
         },
@@ -114,9 +100,9 @@ fun WeatherScreen(
 
 @Composable
 fun SkyBackground(isDarkTheme: MutableState<Boolean>) {
-    var topColor : Color
-    var bottomColor : Color
-    if(!isDarkTheme.value) {
+    var topColor: Color
+    var bottomColor: Color
+    if (!isDarkTheme.value) {
         topColor = Color(0xFF87CEEB) // Light blue
         bottomColor = Color(0xFF72A3CC) // Dark blue
     } else {
@@ -171,7 +157,11 @@ fun WeatherScreenContent(
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressBar(modifier = Modifier.size(LocalConfiguration.current.screenWidthDp.dp / 3))
             }
-        } is WeatherUiStates.Launch -> {
+        }
+        is WeatherUiStates.Launch -> {
+
+        }
+        else -> {
 
         }
     }

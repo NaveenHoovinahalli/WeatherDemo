@@ -16,7 +16,7 @@ fun getWeatherCondition(weatherCondition: String, isDarkTheme: Boolean): Int {
             R.drawable.scattered_clouds
         WeatherConditions.BROKEN_CLOUDS ->
             if (isDarkTheme) R.drawable.broken_clouds_day else R.drawable.broken_clouds_night
-        WeatherConditions.SHOWER_RAIN, WeatherConditions.RAIN, WeatherConditions.THUNDERSTORM ->
+        WeatherConditions.SHOWER_RAIN, WeatherConditions.RAIN, WeatherConditions.LIGHT_RAIN, WeatherConditions.THUNDERSTORM ->
             if (isDarkTheme) R.drawable.rain_day else R.drawable.rain_night
         WeatherConditions.SNOW, WeatherConditions.MIST ->
             if (isDarkTheme) R.drawable.mist_day else R.drawable.mist_night

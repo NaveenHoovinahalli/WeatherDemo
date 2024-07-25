@@ -48,7 +48,7 @@ fun Context.getLastLocation(fusedLocationClient : FusedLocationProviderClient, c
                 if (location != null) {
                     Log.d("NaveenTest", " Location::" + location.latitude)
                     Log.d("NaveenTest", " Location::" + location.longitude)
-                    callBack (CurrentLocation(true,location.latitude, location.longitude ))
+                    callBack (CurrentLocation(true,true,location.latitude, location.longitude ))
                     // Handle location found
                     // Here you can update UI or save location details
                     // For example, update a text or trigger another action
@@ -70,5 +70,8 @@ fun Context.getLastLocation(fusedLocationClient : FusedLocationProviderClient, c
         Log.d("NaveenTest", "Permission not granted")
     }
 }
+
+
+
 
 

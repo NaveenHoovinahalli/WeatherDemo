@@ -2,17 +2,26 @@ package com.example.weatherdemo
 
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import com.example.weatherdemo.data.db.Something
@@ -20,6 +29,7 @@ import com.example.weatherdemo.data.db.WeatherDao
 import com.example.weatherdemo.data.db.WeatherDatabase
 import com.example.weatherdemo.model.CurrentLocation
 import com.example.weatherdemo.model.WeatherResponse
+import com.example.weatherdemo.ui.component.TwoButtonAlert
 import com.example.weatherdemo.ui.theme.WeatherDemoTheme
 import com.example.weatherdemo.utils.constants.AppConstants.REQUEST_LOCATION_PERMISSION
 import com.example.weatherdemo.utils.extention.getLastLocation
@@ -34,34 +44,19 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
 
     lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var dialogShowCount: Boolean = false
 
-//    private lateinit var weatherDao: WeatherDao
-var location by mutableStateOf(CurrentLocation(false, 0.0, 0.0))
+    var location by mutableStateOf(CurrentLocation(false, false, 0.0, 0.0))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-
-        // Initialize userDao
-//        val db = WeatherDatabase.getDatabase(applicationContext)
-//        weatherDao = db.weatherDao()
-        // dbData()
-
-
         setContent {
-
-
             var isDarkTheme = remember { mutableStateOf(false) }
-            var isDark = isSystemInDarkTheme()
-            this.requestLocationPermissions(fusedLocationClient = fusedLocationClient) {
-                location = CurrentLocation(true, it.lat, it.lon)
-                Log.d("NaveenTest", " onCallBack::")
-
-            }
+            LocationMainContent()
             LaunchedEffect(key1 = true) {
-               // isDarkTheme.value = isDark
                 isDarkTheme.value = !isDayTime()
             }
 
@@ -73,7 +68,6 @@ var location by mutableStateOf(CurrentLocation(false, 0.0, 0.0))
 
                     WeatherScreen(
                         context = this,
-                        scope = lifecycle.coroutineScope,
                         isDarkTheme = isDarkTheme,
                         location = location
                     )
@@ -83,23 +77,87 @@ var location by mutableStateOf(CurrentLocation(false, 0.0, 0.0))
 
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_LOCATION_PERMISSION) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // permission granted, fetch location
-                this.getLastLocation(fusedLocationClient = fusedLocationClient) {
-                    location = CurrentLocation(true, it.lat, it.lon)
+    @Composable
+    fun LocationMainContent() {
+        var permissionDenied by remember { mutableStateOf(false) }
+
+        val permissionLauncher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.RequestPermission()
+        ) { isGranted ->
+            if (isGranted) {
+                 getLastLocation { loc ->
+                    location = CurrentLocation(true, true, loc.latitude, loc.longitude)
                 }
             } else {
-                // permission is denied
+                permissionDenied = true
+            }
+        }
+
+        val permissionState = ContextCompat.checkSelfPermission(
+            this@MainActivity,
+            ACCESS_FINE_LOCATION
+        )
+
+        // Request permission if not already granted
+        if (permissionState != PackageManager.PERMISSION_GRANTED) {
+            LaunchedEffect(Unit) {
+                permissionLauncher.launch(ACCESS_FINE_LOCATION)
+            }
+        } else {
+            // Permission is granted; get the location
+            getLastLocation { loc ->
+                location = CurrentLocation(true, true, loc.latitude, loc.longitude)
+            }
+        }
+
+        Column {
+            Button(onClick = {
+                if (permissionState == PackageManager.PERMISSION_GRANTED) {
+                    getLastLocation { loc ->
+                        location = CurrentLocation(true, true, loc.latitude, loc.longitude)
+                    }
+                } else {
+                    permissionLauncher.launch(ACCESS_FINE_LOCATION)
+                }
+            }) {
+                Text("Get Location")
+            }
+
+            if (permissionDenied && !dialogShowCount) {
+                dialogShowCount = true
+                LocationPermissionDialog(
+                    onOkayClick = {
+                        permissionLauncher.launch(ACCESS_FINE_LOCATION)
+                        permissionDenied = false
+                    },
+                    onCancelClick = {
+                        permissionDenied = false
+                    }
+                )
             }
         }
     }
+
+    @SuppressLint("MissingPermission")
+    private fun getLastLocation(callback: (android.location.Location) -> Unit) {
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: android.location.Location? ->
+                location?.let {
+                    callback(it)
+                } ?: run {
+                    Toast.makeText(this, "Location not available", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+
+    @Composable
+    fun LocationPermissionDialog(onOkayClick: () -> Unit, onCancelClick: () -> Unit) {
+        TwoButtonAlert(onOkayClick = { onOkayClick() }, onCancelClick = {
+            onCancelClick()
+        })
+    }
+
 
 }
 

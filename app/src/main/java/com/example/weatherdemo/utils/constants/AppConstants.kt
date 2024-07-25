@@ -17,6 +17,7 @@ object WeatherConditions {
     const val THUNDERSTORM = "thunderstorm"
     const val SNOW = "snow"
     const val MIST = "mist"
+    const val LIGHT_RAIN = "light rain"
 }
 
 object MainWeatherConditions {

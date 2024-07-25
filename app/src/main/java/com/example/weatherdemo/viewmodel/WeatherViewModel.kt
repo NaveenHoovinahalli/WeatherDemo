@@ -1,4 +1,4 @@
-package com.example.weatherdemo.ui.weather
+package com.example.weatherdemo.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -7,6 +7,7 @@ import com.example.weatherdemo.data.db.WeatherDao
 import com.example.weatherdemo.data.db.WeatherDatabase
 import com.example.weatherdemo.data.repository.WeatherRepository
 import com.example.weatherdemo.model.WeatherResponse
+import com.example.weatherdemo.ui.weather.WeatherUiStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
