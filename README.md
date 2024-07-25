@@ -25,6 +25,24 @@ The application is built using Kotlin and follows the MVVM architecture pattern.
 </tr>
 </table>
 
+
+<table>
+<tr>
+<td>
+<img src="images/permission.png" alt="Request Permission" width="250" height="550"/>
+<p style="text-align: center;">Day Theme Screenshot</p>
+</td>
+<td>
+<img src="images/alert.png" alt="Alert" width="250" height="550"/>
+<p style="text-align: center;">Night Theme Screenshot</p>
+</td>
+<td>
+<img src="images/error.png" alt="Error Screen" width="250" height="550"/>
+<p style="text-align: center;">Night Theme Screenshot</p>
+</td>
+</tr>
+</table>
+
 ### API Usage
 
 - **OpenWeatherMap API**: The app utilizes the OpenWeatherMap API to fetch current weather data.
