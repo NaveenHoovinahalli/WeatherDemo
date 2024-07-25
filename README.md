@@ -90,4 +90,4 @@ The app includes contextually relevant images and icons based on the weather con
 
 ### App Flow 
 
-[![App Flow](https://www.youtube.com/shorts/JWPPZYQV3m8)
+[[App Flow](https://www.youtube.com/shorts/JWPPZYQV3m8)
