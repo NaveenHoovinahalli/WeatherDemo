@@ -87,3 +87,7 @@ To build the APK, ensure you have the necessary configurations in your environme
 ### Creative UI Design
 
 The app includes contextually relevant images and icons based on the weather conditions. The UI is designed to provide an aesthetically pleasing and intuitive user experience.
+
+### App Flow 
+
+[![App Flow](https://www.youtube.com/shorts/JWPPZYQV3m8)
