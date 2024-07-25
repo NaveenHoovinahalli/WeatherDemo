@@ -155,7 +155,7 @@ fun WeatherScreenContent(
         }
         is WeatherUiStates.Loading -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressBar(modifier = Modifier.size(LocalConfiguration.current.screenWidthDp.dp / 3))
+                CircularProgressBar(modifier = Modifier.size(LocalConfiguration.current.screenWidthDp.dp / 5))
             }
         }
         is WeatherUiStates.Launch -> {
