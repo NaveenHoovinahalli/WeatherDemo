@@ -12,16 +12,18 @@ The application is built using Kotlin and follows the MVVM architecture pattern.
 - **Modern UI**: A clean and intuitive user interface designed with Jetpack Compose, including relevant images and icons for different weather conditions.
 
 
-<div style="display: flex; justify-content: space-around; align-items: center;">
-<div style="text-align: center;">
-<img src="images/main_light.png" alt="Day Theme Screenshot" width="300" height="550"/>
-<p>Day Theme Screenshot</p>
-</div>
-<div style="text-align: center;">
-<img src="images/main_dark.png" alt="Night Theme Screenshot" width="300" height="550"/>
-<p>Night Theme Screenshot</p>
-</div>
-</div>
+<table>
+<tr>
+<td>
+<img src="images/main_light.png" alt="Day Theme Screenshot" width="200" height="150"/>
+<p style="text-align: center;">Day Theme Screenshot</p>
+</td>
+<td>
+<img src="images/main_dark.png" alt="Night Theme Screenshot" width="200" height="150"/>
+<p style="text-align: center;">Night Theme Screenshot</p>
+</td>
+</tr>
+</table>
 
 ### API Usage
 
