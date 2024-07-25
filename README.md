@@ -15,11 +15,11 @@ The application is built using Kotlin and follows the MVVM architecture pattern.
 <table>
 <tr>
 <td>
-<img src="images/main_light.png" alt="Day Theme Screenshot" width="200" height="150"/>
+<img src="images/main_light.png" alt="Day Theme Screenshot" width="250" height="550"/>
 <p style="text-align: center;">Day Theme Screenshot</p>
 </td>
 <td>
-<img src="images/main_dark.png" alt="Night Theme Screenshot" width="200" height="150"/>
+<img src="images/main_dark.png" alt="Night Theme Screenshot" width="250" height="550"/>
 <p style="text-align: center;">Night Theme Screenshot</p>
 </td>
 </tr>
