@@ -90,5 +90,5 @@ The app includes contextually relevant images and icons based on the weather con
 
 ### App Flow 
 
-![AppFlow GIF](image/AppFlow-ezgif.com-resize.gif)
+![AppFlow GIF](image/appflow.gif)
 
