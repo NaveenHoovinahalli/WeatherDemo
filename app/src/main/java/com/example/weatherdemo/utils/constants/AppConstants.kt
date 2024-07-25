@@ -3,7 +3,7 @@ package com.example.weatherdemo.utils.constants
 object AppConstants {
 
     const val REQUEST_LOCATION_PERMISSION = 123
-    const val API_KEY = "a9d7877ecf28b142eab78b39d9e14c03"
+    const val API_KEY = "USE_YOUR_API_KEY"
     const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
     const val APP_TOP_BAR_TITLE = "Weather"
 }
