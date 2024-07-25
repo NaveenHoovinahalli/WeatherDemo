@@ -48,22 +48,16 @@ The application is built using Kotlin and follows the MVVM architecture pattern.
 
 ### Tech Stack
 
-## Kotlin
-- **Most Preferred Language**: Widely adopted in Android development for its concise syntax and null safety.
-## Jetpack Compose
-- **Modern UI Toolkit**: Simplifies native UI development on Android with declarative Kotlin APIs.
-## Lifecycle
-- **Lifecycle-Aware Components**: Manage Android component lifecycles, enhancing app stability and organization.
-## ViewModel
-- **UI State Holder**: Maintains UI-related data across configuration changes in Android applications.
-## Dagger Hilt
-- **Dependency Injection Simplification**: Reduces boilerplate code for dependency injection in Android projects.
-## Kotlin Coroutines
-- **Asynchronous Programming**: Simplifies background tasks and concurrency in Kotlin-based Android apps.
-## Kotlin Flow
-- **Reactive Data Streams**: Provides a sequential flow of data in Kotlin coroutines for reactive programming.
-## Retrofit
-- **REST Client**: Simple and powerful HTTP client for Android and Java/Kotlin applications.
+- **Kotlin**: Widely adopted in Android development for its concise syntax and null safety.
+- **Jetpack Compose**: Simplifies native UI development on Android with declarative Kotlin APIs.
+- **Lifecycles**: Manage Android component lifecycles, enhancing app stability and organization.
+- **ViewModel**: Maintains UI-related data across configuration changes in Android applications.
+- **Dagger Hilt**: Reduces boilerplate code for dependency injection in Android projects.
+- **Kotlin Coroutines**: Simplifies background tasks and concurrency in Kotlin-based Android apps.
+- **Kotlin Flow**: Provides a sequential flow of data in Kotlin coroutines for reactive programming.
+- **Retrofit**: Simple and powerful HTTP client for Android and Java/Kotlin applications.
+- **Room Database**: Provides an abstraction layer over SQLite for robust database access in Android applications.
+
 
 ### API Usage
 
