@@ -18,7 +18,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.weatherdemo.data.db.WeatherDao
 import com.example.weatherdemo.model.CurrentLocation
 import com.example.weatherdemo.ui.component.*
 import com.example.weatherdemo.ui.weather.WeatherUiStates
@@ -36,39 +35,59 @@ fun WeatherScreen(
     scope: CoroutineScope,
     viewModel: WeatherViewModel = hiltViewModel(),
     isDarkTheme: MutableState<Boolean>,
-    weatherDao: WeatherDao,
     location: CurrentLocation
 ) {
 
     var state: WeatherUiStates by remember { mutableStateOf(WeatherUiStates.Launch) }
 
+//    LaunchedEffect(key1 = location.value.isValueAvailable) {
+
     if (isInternetAvailable(context) && location.isValueAvailable) {
         Log.d("NaveenTest", " Calling API::" + location.lat)
         viewModel.fetchWeather(location.lat, location.lon, API_KEY)
-
-    } else if(false){
-        //Fetch from the DB
     } else {
-        state = WeatherUiStates.Default
+        Log.d("NaveenTest", " Calling DB")
+        viewModel.fetchWeatherFromDb()
     }
+
+//    } else {
+//        //Fetch from the DB
+//        Log.d("NaveenTest", " Calling DB::")
+//
+//        viewModel.fetchWeatherFromDb()
+//
+//    }
+//}
 
     LaunchedEffect(key1 = true) {
         viewModel.uiState.collect {
             when (it) {
                 is WeatherUiStates.Success -> {
+                    Log.d("NaveenTest", " Success::")
                     state = WeatherUiStates.Success(it.response)
-                    Log.d("NaveenTest", " Calling API Response::" + it.response)
+                    viewModel.insertWeatherToDb(it.response)
+                }
+                is WeatherUiStates.SuccessFromDB -> {
+                    Log.d("NaveenTest", " Success::")
+                    state = WeatherUiStates.SuccessFromDB(it.response)
                 }
                 is WeatherUiStates.Error -> {
+                    Log.d("NaveenTest", " Error::")
+
                     state = WeatherUiStates.Error(it.error)
                 }
                 is WeatherUiStates.Loading -> {
+                    Log.d("NaveenTest", " Loading::")
+
                     state = WeatherUiStates.Loading()
                 }
                 is WeatherUiStates.Default -> {
+                    Log.d("NaveenTest", " Default::")
+
                     state = WeatherUiStates.Default
                 } is WeatherUiStates.Launch -> {
-                    state = WeatherUiStates.Launch
+                Log.d("NaveenTest", " Launch::")
+                state = WeatherUiStates.Launch
                 }
             }
         }
@@ -132,6 +151,13 @@ fun WeatherScreenContent(
 
         }
         is WeatherUiStates.Success -> {
+            WeatherMainScreen(
+                modifier = Modifier.wrapContentHeight(),
+                uiState.response,
+                isDarkTheme
+            )
+        }
+        is WeatherUiStates.SuccessFromDB -> {
             WeatherMainScreen(
                 modifier = Modifier.wrapContentHeight(),
                 uiState.response,

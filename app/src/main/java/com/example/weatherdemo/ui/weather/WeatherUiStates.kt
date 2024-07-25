@@ -10,6 +10,8 @@ sealed class WeatherUiStates {
 
     class Loading : WeatherUiStates()
     class Success(val response : WeatherResponse) : WeatherUiStates()
+    class SuccessFromDB(val response : WeatherResponse) : WeatherUiStates()
+
     class Error(val error : String) : WeatherUiStates()
 
 }

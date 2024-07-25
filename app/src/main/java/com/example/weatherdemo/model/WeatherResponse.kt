@@ -1,20 +1,29 @@
 package com.example.weatherdemo.model
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.weatherdemo.data.db.Converters
+import com.example.weatherdemo.data.db.ConvertersResponse
 
+@Entity(tableName = "weather_table")
+@TypeConverters(ConvertersResponse::class)
 data class WeatherResponse(
+    @PrimaryKey( autoGenerate = true)
+    val id: Int = 0,
     val base: String,
-    val clouds: Clouds,
+    @Embedded val clouds: Clouds,
     val cod: Int,
-    val coord: Coord,
+    @Embedded val coord: Coord,
     val dt: Int,
-    val id: Int,
-    val main: Main,
+   @Embedded val main: Main,
     val name: String,
-    val sys: Sys,
+    @Embedded val sys: Sys,
     val timezone: Int,
     val visibility: Int,
     val weather: List<Weather>,
-    val wind: Wind
+    @Embedded val wind: Wind
 )
 
 data class Clouds(
@@ -39,7 +48,6 @@ data class Main(
 
 data class Sys(
     val country: String,
-    val id: Int,
     val sunrise: Int,
     val sunset: Int,
     val type: Int
@@ -48,7 +56,6 @@ data class Sys(
 data class Weather(
     val description: String,
     val icon: String,
-    val id: Int,
     val main: String
 )
 
