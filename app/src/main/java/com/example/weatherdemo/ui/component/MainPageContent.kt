@@ -50,9 +50,11 @@ fun WeatherMainScreen(
         Spacer(Modifier.height(4.dp))
 
 
-        Image(painter = painterResource(
-            getWeatherCondition(response.weather[0].description, !isDarkTheme.value)
-        ), contentDescription = null,modifier = Modifier.size(70.dp))
+        Image(
+            painter = painterResource(
+                getWeatherCondition(response.weather[0].description, !isDarkTheme.value)
+            ), contentDescription = null, modifier = Modifier.size(70.dp)
+        )
 
 
         Text(
@@ -128,7 +130,13 @@ fun WeatherMainScreen(
 }
 
 @Composable
-fun WeatherComponent(modifier: Modifier, weatherLabel: String, weatherValue: String, weatherUnit: String, iconId: Int) {
+fun WeatherComponent(
+    modifier: Modifier,
+    weatherLabel: String,
+    weatherValue: String,
+    weatherUnit: String,
+    iconId: Int
+) {
     ElevatedCard(
         modifier = modifier
             .padding(end = 16.dp),
@@ -157,13 +165,13 @@ fun WeatherComponent(modifier: Modifier, weatherLabel: String, weatherValue: Str
             )
 
             Text(
-                text =  weatherValue,
+                text = weatherValue,
                 style = MaterialTheme.typography.body1,
                 color = Color.Black
             )
 
             Text(
-                text =  weatherUnit,
+                text = weatherUnit,
                 style = MaterialTheme.typography.body2,
                 color = Color.Black
 

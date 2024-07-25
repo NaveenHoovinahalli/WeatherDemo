@@ -22,7 +22,6 @@ fun Activity.requestLocationPermissions(fusedLocationClient :FusedLocationProvid
             Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED -> {
             // You can proceed with location operations
-            Log.d("NaveenTest", " Availabe")
             this.getLastLocation(fusedLocationClient, callBack)
 
         }
@@ -46,28 +45,22 @@ fun Context.getLastLocation(fusedLocationClient : FusedLocationProviderClient, c
             .addOnSuccessListener { location: Location? ->
                 // Got last known location. In some rare situations this can be null.
                 if (location != null) {
-                    Log.d("NaveenTest", " Location::" + location.latitude)
-                    Log.d("NaveenTest", " Location::" + location.longitude)
                     callBack (CurrentLocation(true,true,location.latitude, location.longitude ))
                     // Handle location found
                     // Here you can update UI or save location details
                     // For example, update a text or trigger another action
                 } else {
-                    Log.d("NaveenTest", " Location:: not available")
-
                     // Location is null, handle the case where the location is not available
 
                 }
             }
             .addOnFailureListener { exception ->
-                Log.d("NaveenTest", " Location:: exp:" + exception.message)
 
                 // Handle failure to get location
                 // This could be due to permissions or other errors
 
             }
     } else {
-        Log.d("NaveenTest", "Permission not granted")
     }
 }
 

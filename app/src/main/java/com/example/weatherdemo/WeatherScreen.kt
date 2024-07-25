@@ -19,11 +19,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.weatherdemo.model.CurrentLocation
 import com.example.weatherdemo.ui.component.*
-import com.example.weatherdemo.ui.weather.WeatherUiStates
 import com.example.weatherdemo.viewmodel.WeatherViewModel
 import com.example.weatherdemo.utils.constants.AppConstants.API_KEY
 import com.example.weatherdemo.utils.constants.AppConstants.APP_TOP_BAR_TITLE
 import com.example.weatherdemo.utils.extention.isInternetAvailable
+import com.example.weatherdemo.viewmodel.WeatherUiStates
 
 
 @Composable
@@ -121,7 +121,7 @@ fun SkyBackground(isDarkTheme: MutableState<Boolean>) {
                 )
             )
     ) {
-        // Content of your screen goes here
+
     }
 }
 
@@ -159,9 +159,6 @@ fun WeatherScreenContent(
             }
         }
         is WeatherUiStates.Launch -> {
-
-        }
-        else -> {
 
         }
     }

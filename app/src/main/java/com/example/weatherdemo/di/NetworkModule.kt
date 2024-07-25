@@ -2,6 +2,7 @@ package com.example.weatherdemo.di
 
 import com.example.weatherdemo.BuildConfig
 import com.example.weatherdemo.data.network.WeatherApiService
+import com.example.weatherdemo.utils.constants.AppConstants.BASE_URL
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -25,7 +26,7 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl("https://api.openweathermap.org/data/2.5/")
+        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
         .client(okHttpClient)
         .build()

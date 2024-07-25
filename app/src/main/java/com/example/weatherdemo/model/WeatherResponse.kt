@@ -5,18 +5,19 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.example.weatherdemo.data.db.ConvertersResponse
+import com.example.weatherdemo.utils.constants.DBDetails.TABLE_NAME
 
-@Entity(tableName = "weather_table")
+@Entity(tableName = TABLE_NAME)
 @TypeConverters(ConvertersResponse::class)
 data class WeatherResponse(
-    @PrimaryKey( autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val base: String,
     @Embedded val clouds: Clouds,
     val cod: Int,
     @Embedded val coord: Coord,
     val dt: Int,
-   @Embedded val main: Main,
+    @Embedded val main: Main,
     val name: String,
     @Embedded val sys: Sys,
     val timezone: Int,

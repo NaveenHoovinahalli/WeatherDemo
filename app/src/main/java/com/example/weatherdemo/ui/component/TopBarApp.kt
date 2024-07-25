@@ -37,21 +37,25 @@ fun TopBarApp(title: String, isDarkTheme: MutableState<Boolean>) {
 // RowScope here, so these icons will be placed horizontally
             IconButton(onClick = {
                 isDarkTheme.value = !isDarkTheme.value
-                buttonTheme = ! buttonTheme
+                buttonTheme = !buttonTheme
             }) {
                 Column(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxHeight()
                 ) {
-                    if(buttonTheme){
-                        Image(painter = painterResource(id = R.drawable.dark_mode), contentDescription = null,modifier = Modifier.size(32.dp))
-//                        Text(text = "Light",
-//                        style = androidx.compose.material3.MaterialTheme.typography.bodySmall)
-                    }else{
-                        Image(painter = painterResource(id = R.drawable.day_sunny), contentDescription = null,modifier = Modifier.size(32.dp))
-//                        Text(text = "Dark",
-//                            style = androidx.compose.material3.MaterialTheme.typography.bodySmall)
+                    if (buttonTheme) {
+                        Image(
+                            painter = painterResource(id = R.drawable.dark_mode),
+                            contentDescription = null,
+                            modifier = Modifier.size(32.dp)
+                        )
+                    } else {
+                        Image(
+                            painter = painterResource(id = R.drawable.day_sunny),
+                            contentDescription = null,
+                            modifier = Modifier.size(32.dp)
+                        )
                     }
 
                 }

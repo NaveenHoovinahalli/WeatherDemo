@@ -1,7 +1,6 @@
 package com.example.weatherdemo.utils.extention
 
 
-import androidx.activity.ComponentActivity
 import java.util.*
 import java.time.Instant
 import java.time.LocalDateTime

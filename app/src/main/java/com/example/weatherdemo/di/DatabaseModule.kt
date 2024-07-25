@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.weatherdemo.data.db.WeatherDao
 import com.example.weatherdemo.data.db.WeatherDatabase
+import com.example.weatherdemo.utils.constants.DBDetails.DB_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +24,7 @@ object DatabaseModule {
         return Room.databaseBuilder(
             context.applicationContext,
             WeatherDatabase::class.java,
-            "weather_database"
+            DB_NAME
         ).build()
     }
 

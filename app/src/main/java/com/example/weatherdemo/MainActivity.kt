@@ -3,42 +3,26 @@ package com.example.weatherdemo
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.coroutineScope
-import androidx.lifecycle.lifecycleScope
-import com.example.weatherdemo.data.db.Something
-import com.example.weatherdemo.data.db.WeatherDao
-import com.example.weatherdemo.data.db.WeatherDatabase
 import com.example.weatherdemo.model.CurrentLocation
-import com.example.weatherdemo.model.WeatherResponse
 import com.example.weatherdemo.ui.component.TwoButtonAlert
 import com.example.weatherdemo.ui.theme.WeatherDemoTheme
-import com.example.weatherdemo.utils.constants.AppConstants.REQUEST_LOCATION_PERMISSION
-import com.example.weatherdemo.utils.extention.getLastLocation
 import com.example.weatherdemo.utils.extention.isDayTime
-import com.example.weatherdemo.utils.extention.requestLocationPermissions
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
