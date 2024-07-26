@@ -14,7 +14,9 @@ import javax.inject.Inject
 import com.example.weatherdemo.utils.Result
 import kotlinx.coroutines.flow.*
 
-
+/**
+ * ViewModel for getting response and to handle other logic
+ * */
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val repository: WeatherRepository,
@@ -31,6 +33,9 @@ class WeatherViewModel @Inject constructor(
     val uiState: StateFlow<WeatherUiStates> = _uiState.asStateFlow()
 
 
+    /**
+    * Get the weather response from the API with Lat and Long
+    * */
     fun fetchWeather(latitude: Double, longitude: Double, apiKey: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -55,6 +60,9 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Get the weather response from the DB
+     * */
     fun fetchWeatherFromDb() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -71,6 +79,10 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Insert the weather date to the DB
+     * TODO : User proper DB sequence
+     * */
     fun insertWeatherToDb(response: WeatherResponse) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
