@@ -33,3 +33,10 @@ fun TwoButtonAlert(
         }
     )
 }
+
+@Composable
+fun LocationPermissionDialog(onOkayClick: () -> Unit, onCancelClick: () -> Unit) {
+    TwoButtonAlert(onOkayClick = { onOkayClick() }, onCancelClick = {
+        onCancelClick()
+    })
+}
