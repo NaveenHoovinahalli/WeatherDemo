@@ -1,4 +1,4 @@
-package com.example.weatherdemo
+package com.example.weatherdemo.ui.component
 
 import android.content.Context
 import androidx.compose.foundation.background
@@ -18,7 +18,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.weatherdemo.model.CurrentLocation
-import com.example.weatherdemo.ui.component.*
 import com.example.weatherdemo.viewmodel.WeatherViewModel
 import com.example.weatherdemo.utils.constants.AppConstants.API_KEY
 import com.example.weatherdemo.utils.constants.AppConstants.APP_TOP_BAR_TITLE

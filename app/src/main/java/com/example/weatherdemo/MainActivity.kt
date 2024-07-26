@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.example.weatherdemo.model.CurrentLocation
 import com.example.weatherdemo.ui.component.LocationMainContent
+import com.example.weatherdemo.ui.component.WeatherScreen
 import com.example.weatherdemo.ui.theme.WeatherDemoTheme
 import com.example.weatherdemo.utils.extention.isDayTime
 import com.google.android.gms.location.FusedLocationProviderClient
